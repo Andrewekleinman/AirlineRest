@@ -1,0 +1,3 @@
+insert into todo (id, description, done, target_date, username) values (10001, 'testdescription', false, CURRENT_DATE(), 'testusername');
+insert into todo (id, description, done, target_date, username) values (10002, 'testdescription2', false, CURRENT_DATE(), 'testusername');
+insert into todo (id, description, done, target_date, username) values (10003, 'testdescription3', false, CURRENT_DATE(), 'testusername');
