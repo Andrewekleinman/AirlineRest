@@ -12,7 +12,18 @@ public class Flight {
 	public Flight() {
 		
 	}
+
+	@Id
+	@GeneratedValue
+	private int id;
+
+	private String depart;
 	
+	private String arrive;
+	private LocalDate departDate;
+	private LocalDate returnDate;
+	private boolean[] seats;
+
 	public Flight(int id, String depart, String arrive, LocalDate departDate, LocalDate returnDate, boolean[] seats) {
 		super();
 		this.id = id;
@@ -63,16 +74,6 @@ public class Flight {
 		this.seats = seats;
 	}
 
-	@Id
-	@GeneratedValue
-	private int id;
-
-	private String depart;
-	
-	private String arrive;
-	private LocalDate departDate;
-	private LocalDate returnDate;
-	private boolean[] seats;
 
 	public int getId() {
 		return id;

@@ -14,12 +14,10 @@ public class FlightService {
 	private static int flightsCount = 0;
 	
 	public List<Flight> findFligthsByData(String depart, String arrive, LocalDate departDate, LocalDate arriveDate){
-		// Predicate<? super Flight> predicate = 
-		// 		flight -> (flight.getDepart().equalsIgnoreCase(depart) &&flight.getArrive().equalsIgnoreCase(arrive)&&
-        //         flight.getDepartDate().equals(departDate)&&flight.getArriveDate().equals(arriveDate)) ;
-		// return flights.stream().filter(predicate).toList();
-        flights.add(new Flight());
-        return flights;
+		Predicate<? super Flight> predicate = 
+				flight -> (flight.getDepart().equalsIgnoreCase(depart) &&flight.getArrive().equalsIgnoreCase(arrive)&&
+                flight.getDepartDate().equals(departDate)&&flight.getReturnDate().equals(arriveDate)) ;
+		return flights.stream().filter(predicate).toList();
 	}
 	
 	public Flight addFlight(String depart, String arrive, LocalDate departDate, LocalDate arriveDate, int seats) {
