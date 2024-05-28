@@ -30,15 +30,16 @@ public class FlightResource{
     @GetMapping("/flights/{depart}/{arrive}/{departDate}/{returnDate}/test")
     public List<Flight> retrieveFlights(@PathVariable String depart,@PathVariable String arrive,
     @PathVariable String departDate,@PathVariable String returnDate){      
-        return flightRepository.findByDepartAndArriveAndDepartDateAndReturnDate(depart, arrive, LocalDate.parse(departDate, formatter), LocalDate.parse(returnDate, formatter));
+        return flightRepository.findByDepart(depart);
+        //return flightRepository.findByDepartAndArriveAndDepartDate(depart, arrive, LocalDate.parse(departDate, formatter));
     }
     @GetMapping("/flights/{id}")
     public Flight retrieveFlight(@PathVariable int id){
-        return flightService.findById(id);
+        return flightRepository.findById(id);
     }
     @DeleteMapping("/flights/{id}")
     public ResponseEntity<Void> DeleteFlight(@PathVariable int id){
-        flightService.deleteById(id);
+        flightRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/flights/{id}")
