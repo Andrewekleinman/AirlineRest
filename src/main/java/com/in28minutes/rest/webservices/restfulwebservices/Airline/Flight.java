@@ -17,12 +17,12 @@ public class Flight {
 	@GeneratedValue
 	private int id;
 
-	private String depart;
-	
+	private String depart;	
 	private String arrive;
 	private LocalDate departDate;
 	private LocalDate returnDate;
 	private boolean[] seats;
+	private int flightsRemaining;
 
 	public Flight(int id, String depart, String arrive, LocalDate departDate, LocalDate returnDate, boolean[] seats) {
 		super();
@@ -49,7 +49,18 @@ public class Flight {
 	public void setArrive(String arrive) {
 		this.arrive = arrive;
 	}
+	public int getFlightsRemaining() {
+		if(seats == null){	
+			seats = new boolean[10];	
+		}
+		this.flightsRemaining=seats.length;
+		return flightsRemaining;
+	}
 
+	public void setFlightsRemaining(int flightsRemaining) {
+		seats = new boolean[flightsRemaining];
+		this.flightsRemaining=flightsRemaining;
+	}
 	public LocalDate getDepartDate() {
 		return departDate;
 	}

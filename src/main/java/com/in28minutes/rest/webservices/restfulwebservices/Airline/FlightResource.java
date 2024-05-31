@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class FlightResource{
-    private FlightService flightService;
     private FlightRepository flightRepository;
 
 
@@ -30,8 +29,8 @@ public class FlightResource{
     @GetMapping("/flights/{depart}/{arrive}/{departDate}/{returnDate}/test")
     public List<Flight> retrieveFlights(@PathVariable String depart,@PathVariable String arrive,
     @PathVariable String departDate,@PathVariable String returnDate){      
-        return flightRepository.findByDepart(depart);
-        //return flightRepository.findByDepartAndArriveAndDepartDate(depart, arrive, LocalDate.parse(departDate, formatter));
+        //return flightRepository.findByDepart(depart);
+        return flightRepository.findByDepartAndArriveAndDepartDate(depart, arrive, LocalDate.parse(departDate, formatter));
     }
     @GetMapping("/flights/{id}")
     public Flight retrieveFlight(@PathVariable int id){
@@ -52,33 +51,4 @@ public class FlightResource{
         return flightRepository.save(flight);
         // return flightService.addFlight(flight.getDepart(), flight.getArrive(), flight.getDepartDate(),flight.getReturnDate(), 10);
     }
-
-
-    // private TodoRepository todoRepository;
-
-    // public TodoJpaResource(TodoService todoService, TodoRepository todoRepository){
-    //     this.todoRepository = todoRepository;
-    // }
-
-    // @GetMapping("/users/{username}/todos")
-    // public List<Todo> retrieveTodos(@PathVariable String username){
-    //     return todoRepository.findByUsername(username);
-    // }
-    // @GetMapping("/users/{username}/todos/{id}")
-    // public Todo retrieveTodo(@PathVariable String username, @PathVariable int id){
-    //     return todoRepository.findById(id).get();
-    // }
-    // @DeleteMapping("/users/{username}/todos/{id}")
-    // public ResponseEntity<Void> DeleteTodo(@PathVariable String username, @PathVariable int id){
-    //     todoRepository.deleteById(id);
-    //     return ResponseEntity.noContent().build();
-    // }
-    // @PutMapping("/users/{username}/todos/{id}")
-    // public Todo alterTodo(@PathVariable String username, @PathVariable int id,@RequestBody Todo todo){
-    //     todoRepository.save(todo);
-    //     return todo;
-    // }
-    // @PostMapping("/users/{username}/todos")
-    // public Todo CreateTodo(@RequestBody Todo todo){
-    //     return todoRepository.save(todo);
 }
