@@ -26,9 +26,9 @@ public class FlightResource{
         this.flightRepository=flightRepository;
     }
 
-    @GetMapping("/flights/{depart}/{arrive}/{departDate}/{returnDate}/test")
+    @GetMapping("/flights/{depart}/{arrive}/{departDate}/test")
     public List<Flight> retrieveFlights(@PathVariable String depart,@PathVariable String arrive,
-    @PathVariable String departDate,@PathVariable String returnDate){      
+    @PathVariable String departDate){      
         //return flightRepository.findByDepart(depart);
         return flightRepository.findByDepartAndArriveAndDepartDate(depart, arrive, LocalDate.parse(departDate, formatter));
     }
@@ -42,7 +42,8 @@ public class FlightResource{
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/flights/{id}")
-    public Flight alterFlight(@PathVariable String username, @PathVariable int id,@RequestBody Flight flight){
+    public Flight alterFlight(@PathVariable int id, @RequestBody Flight flight){
+        flight.setId(id);
         flightRepository.save(flight);
         return flight;
     }

@@ -24,14 +24,14 @@ public class Flight {
 	private boolean[] seats;
 	private int flightsRemaining;
 
-	public Flight(int id, String depart, String arrive, LocalDate departDate, LocalDate returnDate, boolean[] seats) {
+	public Flight(int id, String depart, String arrive, LocalDate departDate, LocalDate returnDate, int flightsRemaining ) {
 		super();
 		this.id = id;
 		this.depart = depart;
 		this.arrive = arrive;
 		this.departDate = departDate;
 		this.returnDate=returnDate;
-		this.seats = seats;
+		this.flightsRemaining = flightsRemaining;
 	}
 
 	public String getDepart() {
@@ -50,15 +50,13 @@ public class Flight {
 		this.arrive = arrive;
 	}
 	public int getFlightsRemaining() {
-		if(seats == null){	
-			seats = new boolean[10];	
-		}
-		this.flightsRemaining=seats.length;
+
+		
 		return flightsRemaining;
 	}
 
 	public void setFlightsRemaining(int flightsRemaining) {
-		seats = new boolean[flightsRemaining];
+
 		this.flightsRemaining=flightsRemaining;
 	}
 	public LocalDate getDepartDate() {
