@@ -1,6 +1,8 @@
 package com.in28minutes.rest.webservices.restfulwebservices.Airline;
 
 import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +21,34 @@ public class BookingResource {
 
     @GetMapping("/bookings/{username}/{bookingType}/test")
     public List<Booking> retrievebookings(@PathVariable String username,@PathVariable String bookingType){      
-        System.out.println(username + " " + bookingType);
         return bookingRepository.findByUsernameAndBookingType(username, bookingType);
     }
-    @PutMapping("/bookings/{bookingId}")
-    public Booking alterBooking(@PathVariable int bookingId, @RequestBody Booking booking){
-        booking.setBookingId(bookingId);
-        bookingRepository.save(booking);
-        return booking;
+    @DeleteMapping("/bookings/{bookingId}")
+    public void deleteBooking(@PathVariable int bookingId){
+        bookingRepository.deleteById(bookingId);;
+    }
+    @PutMapping("/purchase/{username}")
+    public List<Booking> alterBooking(@PathVariable String username){
+        List<Booking> list = bookingRepository.findByUsernameAndBookingType(username, "Cart");
+        List<Booking> inventory = bookingRepository.findByUsernameAndBookingType(username, "Inventory");
+        System.out.println("reachable code");
+        System.out.println(list.toString());
+        boolean duplicate = false;
+        for (Booking b : list) {
+            for (Booking i : inventory) {
+                if(i.getFlightId()==b.getFlightId()){
+                    i.setPassengers(i.getPassengers()+b.getPassengers());
+                    bookingRepository.delete(b);
+                    duplicate=true;
+                }
+            }
+            if(duplicate != true){
+                System.out.println(b.toString());
+                b.setBookingType("Inventory");
+                bookingRepository.save(b);
+            }
+        }
+        return list;
     }
     @PostMapping("/bookings")
     public Booking Createbooking(@RequestBody Booking booking){
