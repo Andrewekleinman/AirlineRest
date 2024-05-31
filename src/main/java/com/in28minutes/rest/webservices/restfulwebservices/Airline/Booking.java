@@ -18,6 +18,13 @@ public class Booking {
     public void setUsername(String username) {
         this.username = username;
     }
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
 
     public String getDepart() {
         return depart;
