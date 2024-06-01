@@ -25,7 +25,10 @@ public class FlightResource{
     public FlightResource(FlightRepository flightRepository){
         this.flightRepository=flightRepository;
     }
-
+    @GetMapping(path = "/basicauth")
+	public String basicAuthCheck(){
+		return "Success";
+	}
     @GetMapping("/flights/{depart}/{arrive}/{departDate}/test")
     public List<Flight> retrieveFlights(@PathVariable String depart,@PathVariable String arrive,
     @PathVariable String departDate){      
