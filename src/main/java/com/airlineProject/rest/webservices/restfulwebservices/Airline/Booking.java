@@ -1,4 +1,4 @@
-package com.in28minutes.rest.webservices.restfulwebservices.Airline;
+package com.airlineProject.rest.webservices.restfulwebservices.Airline;
 
 import java.time.LocalDate;
 import jakarta.persistence.Entity;
