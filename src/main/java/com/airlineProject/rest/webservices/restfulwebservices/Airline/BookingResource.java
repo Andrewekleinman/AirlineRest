@@ -1,5 +1,6 @@
 package com.airlineProject.rest.webservices.restfulwebservices.Airline;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BookingResource {
     private BookingRepository bookingRepository;
-
+    //private FlightRepository flightRepository;
 
     public BookingResource(BookingRepository bookingRepository){
         this.bookingRepository=bookingRepository;
@@ -21,7 +22,15 @@ public class BookingResource {
 
     @GetMapping("/bookings/{username}/{bookingType}/test")
     public List<Booking> retrievebookings(@PathVariable String username,@PathVariable String bookingType){      
-        return bookingRepository.findByUsernameAndBookingType(username, bookingType);
+        List<Booking> list = bookingRepository.findByUsernameAndBookingType(username, bookingType);
+        for (Booking b : list) {
+            if(b.getDepartDate().isBefore(LocalDate.now())){
+                bookingRepository.delete(b);
+                //flightRepository.deleteById(b.getFlightId());
+                list.remove(b);
+            }
+        }
+        return list;
     }
     @DeleteMapping("/bookings/{bookingId}")
     public void deleteBooking(@PathVariable int bookingId){
@@ -31,8 +40,8 @@ public class BookingResource {
     public List<Booking> alterBooking(@PathVariable String username){
         List<Booking> list = bookingRepository.findByUsernameAndBookingType(username, "Cart");
         List<Booking> inventory = bookingRepository.findByUsernameAndBookingType(username, "Inventory");
-        System.out.println("reachable code");
-        System.out.println(list.toString());
+        //System.out.println("reachable code");
+        //System.out.println(list.toString());
         boolean duplicate = false;
         for (Booking b : list) {
             for (Booking i : inventory) {
@@ -43,7 +52,7 @@ public class BookingResource {
                 }
             }
             if(duplicate != true){
-                System.out.println(b.toString());
+                //System.out.println(b.toString());
                 b.setBookingType("Inventory");
                 bookingRepository.save(b);
             }
