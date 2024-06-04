@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class BookingResource {
     private BookingRepository bookingRepository;
-    //private FlightRepository flightRepository;
+    private FlightRepository flightRepository;
 
-    public BookingResource(BookingRepository bookingRepository){
+    public BookingResource(BookingRepository bookingRepository , FlightRepository flightRepository){
         this.bookingRepository=bookingRepository;
+        this.flightRepository=flightRepository;
     }
 
     @GetMapping("/bookings/{username}/{bookingType}/test")
@@ -44,6 +45,8 @@ public class BookingResource {
         //System.out.println(list.toString());
         boolean duplicate = false;
         for (Booking b : list) {
+            Flight f = flightRepository.findById(b.getFlightId());
+            f.setFlightsRemaining(f.getFlightsRemaining() - b.getPassengers());
             for (Booking i : inventory) {
                 if(i.getFlightId()==b.getFlightId()){
                     i.setPassengers(i.getPassengers()+b.getPassengers());
