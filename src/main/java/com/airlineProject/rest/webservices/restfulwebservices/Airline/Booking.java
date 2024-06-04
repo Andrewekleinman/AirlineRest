@@ -28,7 +28,7 @@ public class Booking {
 
     public String getDepart() {
         return depart;
-    }
+    } 
 
     public void setDepart(String depart) {
         this.depart = depart;
@@ -83,8 +83,34 @@ public class Booking {
 	private LocalDate departDate;
 	private int passengers;
     private String bookingType; //cart or inventory
+    private String departTime;
+	public String getDepartTime() {
+        return departTime;
+    }
 
-    public Booking(String username,int flightId, String depart, String arrive, LocalDate deparDate, int passengers, String bookingType){
+    public void setDepartTime(String departTime) {
+        this.departTime = departTime;
+    }
+
+    public String getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(String arriveTime) {
+        this.arriveTime = arriveTime;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+    private String arriveTime;
+	private String price;
+
+    public Booking(String username,int flightId, String depart, String arrive, LocalDate deparDate, int passengers, String bookingType, String departTime, String arriveTime, String price){
         super();
         this.username=username;
         this.flightId=flightId;
@@ -93,5 +119,8 @@ public class Booking {
         this.departDate = deparDate;
         this.passengers=passengers;
         this.bookingType=bookingType;
+        this.departTime=departTime;
+        this.arriveTime=arriveTime;
+        this.price=price;
     }
 }

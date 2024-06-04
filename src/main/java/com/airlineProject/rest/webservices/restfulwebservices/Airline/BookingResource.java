@@ -21,7 +21,7 @@ public class BookingResource {
     }
 
     @GetMapping("/bookings/{username}/{bookingType}/test")
-    public List<Booking> retrievebookings(@PathVariable String username,@PathVariable String bookingType){      
+    public List<Booking> retrievebookings(@PathVariable String username,@PathVariable String bookingType){    
         List<Booking> list = bookingRepository.findByUsernameAndBookingType(username, bookingType);
         for (Booking b : list) {
             if(b.getDepartDate().isBefore(LocalDate.now())){

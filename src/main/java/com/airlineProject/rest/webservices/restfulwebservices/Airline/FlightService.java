@@ -20,8 +20,8 @@ public class FlightService {
 		return flights.stream().filter(predicate).toList();
 	}
 	
-	public Flight addFlight(String depart, String arrive, LocalDate departDate, LocalDate arriveDate, int flightsRemaining) {
-	    Flight flight = new Flight(++flightsCount,depart,arrive,departDate,arriveDate, flightsRemaining);
+	public Flight addFlight(String depart, String arrive, LocalDate departDate, LocalDate arriveDate, int flightsRemaining, String departTime, String arriveTime, String price) {
+	    Flight flight = new Flight(++flightsCount,depart,arrive,departDate,arriveDate, flightsRemaining, departTime, arriveTime, price);
 		flights.add(flight);
 		return flight;
 	}
